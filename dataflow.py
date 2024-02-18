@@ -30,7 +30,7 @@ def run(argv=None):
 
     with beam.Pipeline(options=pipeline_options) as p:
         measurements = (p | "Read from Pub/Sub" >> beam.io.ReadFromPubSub(topic=known_args.input)
-                        | "Decode JSON" >> beam.Map(lambda x: json.loads(x.decode('utf-8'))))
+                        | "Decode JSON" >> beam.Map(lambda x: json.loads(x.decode('utf-8').strip())))
 
         filtered_measurements = measurements | 'Filter missing measurements' >> beam.Filter(filter_missing)
 
