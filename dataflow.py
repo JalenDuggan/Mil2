@@ -24,8 +24,8 @@ def run(argv=None):
                         help='Input Pub/Sub topic to read measurement readings.')
     parser.add_argument('--output', dest='output', required=True,
                         help='Output Pub/Sub topic to write processed measurements to.')
-    known_args = parser.parse_known_args(argv)
-    pipeline_options = PipelineOptions(argv)
+    known_args, pipeline_args = parser.parse_known_args(argv)
+    pipeline_options = PipelineOptions(pipeline_args)
     pipeline_options.view_as(SetupOptions).save_main_session = True
 
     with beam.Pipeline(options=pipeline_options) as p:
